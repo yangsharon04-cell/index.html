@@ -5,71 +5,120 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>114期末專題</title>
     <style>
+        /* 網頁整體：改為舒適的藍天漸層色 */
         body {
-            background-color: #FFFF00; /* 鮮黃色背景 */
-            font-family: "Microsoft JhengHei", sans-serif;
+            background: linear-gradient(to bottom, #7ec0ee 0%, #e0f2fe 100%);
+            background-attachment: fixed;
+            font-family: "Helvetica Neue", Arial, "Noto Sans TC", "Microsoft JhengHei", sans-serif;
             margin: 0;
-            padding: 40px 20px;
+            padding: 60px 20px;
             text-align: center;
-            color: #000000;
+            color: #2c3e50; /* 深質感灰藍色文字 */
         }
+
+        /* 內容容器：做成帶有微透明感的「白雲」感覺 */
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: rgba(255, 255, 255, 0.75); /* 半透明白 */
+            border: 1px solid rgba(255, 255, 255, 0.5);
+            border-radius: 20px; /* 圓潤的雲朵感圓角 */
+            padding: 40px;
+            backdrop-filter: blur(8px);
+            box-shadow: 0 15px 35px rgba(100, 150, 200, 0.2);
+        }
+
+        /* 主標題：舒適的深藍色 */
         h1 {
             font-size: 36px;
-            margin-bottom: 20px;
+            font-weight: 700;
+            letter-spacing: 1px;
+            color: #1e40af; 
+            margin-bottom: 25px;
         }
+
+        /* 副標題 */
         h2 {
-            font-size: 24px;
-            margin-bottom: 20px;
+            font-size: 22px;
+            color: #4b5563;
+            font-weight: 500;
+            margin-top: 0;
         }
+
+        /* 內文描述 */
         p {
-            font-size: 18px;
-            line-height: 1.6;
+            font-size: 17px;
+            line-height: 1.8;
+            color: #374151;
         }
+
+        /* 綠色清新重點字（代表良好空氣） */
+        .highlight {
+            color: #059669;
+            font-weight: bold;
+            background-color: rgba(16, 185, 129, 0.1);
+            padding: 2px 6px;
+            border-radius: 4px;
+        }
+
+        /* 清新感分隔線 */
         hr {
             border: 0;
             height: 1px;
-            background: #ccc;
+            background: linear-gradient(to right, transparent, rgba(30, 64, 175, 0.15), transparent);
             margin: 40px auto;
-            width: 100%;
+            width: 80%;
         }
+
+        /* 下載按鈕：為了在藍天白雲下醒目，維持充滿活力的活力橘 */
         .download-btn {
             display: inline-block;
-            background-color: #FF5500; /* 大橘色按鈕 */
-            color: white;
-            font-size: 20px;
-            font-weight: bold;
-            padding: 15px 40px;
+            background: linear-gradient(135deg, #ff7a00 0%, #ff5500 100%);
+            color: #ffffff;
+            font-size: 18px;
+            font-weight: 600;
+            letter-spacing: 1px;
+            padding: 16px 45px;
             text-decoration: none;
-            border-radius: 8px;
-            margin: 20px 0;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
-            transition: background 0.2s;
+            border-radius: 30px;
+            margin: 25px 0;
+            box-shadow: 0 8px 20px rgba(255, 85, 0, 0.25);
+            transition: all 0.3s ease;
         }
+
+        /* 滑鼠懸停效果 */
         .download-btn:hover {
-            background-color: #E64A00;
+            transform: translateY(-2px);
+            box-shadow: 0 12px 25px rgba(255, 85, 0, 0.4);
+            background: linear-gradient(135deg, #ff8c21 0%, #ff6611 100%);
         }
+
+        /* 底部備註 */
         .notice {
-            font-size: 14px;
-            margin-top: 30px;
+            font-size: 13px;
+            color: #6b7280;
+            margin-top: 20px;
         }
     </style>
 </head>
 <body>
 
-    <h1>114期末專題</h1>
-    <h2>專題簡介：</h2>
-    <p>這是<b>1</b>個財經查詢的專案檔可以利用股票代號查詢，</p>
-    
-    <hr>
+    <div class="container">
+        <h1>114期末專題</h1>
+        <h2>專題簡介</h2>
+        <p>這是一個空氣品質觀測的專案檔，使用者可以利用 <span class="highlight">測站名稱</span> 進行即時空污數據查詢與分析。</p>
+        
+        <hr>
 
-    <h1>台灣股市指數查詢工具</h1>
-    <p>輸入年月（例如：<b>2010M03</b>），即可查詢股市加權指數、市值與公司數。</p>
-    
-    <p>📥 點擊以下按鈕下載工具：</p>
-    
-    <a href="https://github.com/yangsharon04-cell/index.html/releases/download/v1.0.0/111.exe" class="download-btn">下載 EXE 程式</a>
+        <h1>台灣空氣品質查詢工具</h1>
+        <p>一鍵抓取環境部最新數據，輕鬆掌握各產站的 <span class="highlight">AQI 指數</span>、主要污染物與即時空氣品質狀態。</p>
+        
+        <p style="color: #4b5563; margin-top: 30px;">☀️ 點擊下方按鈕即可下載工具：</p>
+        
+        <a href="https://github.com/yangsharon04-cell/index.html/releases/download/v1.0.0/111.exe" class="download-btn">下載 EXE 程式</a>
 
-    <p class="notice">* 僅適用於 Windows 系統，請雙擊執行後依指示操作。</p>
+        <p class="notice">* 本工具僅適用於 Windows 系統，請雙擊執行後依視窗指示操作。</p>
+    </div>
 
 </body>
 </html>
