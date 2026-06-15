@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>114期末專題 - 空污查詢工具</title>
+    <style>
+        /* 吉卜力風藍天漸層背景 */
+        body {
+            background: linear-gradient(to bottom, #4ba3e3 0%, #a1d6f7 50%, #eef7fc 100%);
+            margin: 0;
+            padding: 40px 20px;
+            font-family: "SF Pro TC", "Noto Sans TC", "PingFang TC", "Microsoft JhengHei", sans-serif;
+            color: #2a4365;
+            min-height: 100vh;
+            position: relative;
+            overflow-x: hidden;
+        }
+
+        /* ☁️ 純 CSS 雲朵飄動動畫設定 */
+        .cloud-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        /* 模擬吉卜力手繪感的大雲朵 */
+        .cloud {
+            position: absolute;
+            background: rgba(255, 255, 255, 0.85);
+            border-radius: 100px;
+            backdrop-filter: blur(2px);
+        }
+        .cloud::before, .cloud::after {
+            content: '';
+            position: absolute;
+            background: rgba(255, 255, 255, 0.85);
+            border-radius: 50%;
+        }
+
+        /* 雲朵 1 號 */
+        .cloud1 {
+            width: 200px; height: 60px;
+            top: 15%; left: -220px;
+            animation: floatClouds 35s linear infinite;
+        }
+        .cloud1::before { width: 90px; height: 90px; top: -45px; left: 30px; }
+        .cloud1::after { width: 110px; height: 110px; top: -60px; left: 80px; }
+
+        /* 雲朵 2 號 */
+        .cloud2 {
+            width: 280px; height: 80px;
+            top: 45%; left: -300px;
+            animation: floatClouds 45s linear infinite;
+            animation-delay: 10s;
+            opacity: 0.7;
+        }
+        .cloud2::before { width: 120px; height: 120px; top: -60px; left: 40px; }
+        .cloud2::after { width: 140px; height: 140px; top: -80px; left: 110px; }
+
+        /* 雲朵 3 號 */
+        .cloud3 {
+            width: 150px; height: 45px;
+            top: 70%; left: -180px;
+            animation: floatClouds 28s linear infinite;
+            animation-delay: 5s;
+            opacity: 0.6;
+        }
+        .cloud3::before { width: 70px; height: 70px; top: -35px; left: 20px; }
+        .cloud3::after { width: 85px; height: 85px; top: -45px; left: 55px; }
+
+        /* 雲朵從左到右橫飄的動畫軌跡 */
+        @keyframes floatClouds {
+            0% { left: -300px; }
+            100% { left: 105vw; }
+        }
+
+        /* 吉卜力溫暖手繪感容器 */
+        .container {
+            max-width: 680px;
+            margin: 40px auto;
+            background: rgba(255, 255, 255, 0.9);
+            border: 3px solid #7bb3dc; /* 溫柔的粉藍框 */
+            border-radius: 24px; /* 圓潤線條 */
+            padding: 45px 35px;
+            box-shadow: 0 12px 28px rgba(31, 73, 119, 0.15);
+            position: relative;
+            z-index: 10;
+        }
+
+        /* 標題風：吉卜力天空之城/龍貓式溫暖字體感 */
+        h1 {
+            font-size: 34px;
+            font-weight: 700;
+            color: #1a365d;
+            margin-bottom: 8px;
+            text-shadow: 1px 1px 0px #fff;
+        }
+
+        h2 {
+            font-size: 20px;
+            color: #4a5568;
+            font-weight: 500;
+            margin-top: 0;
+            margin-bottom: 30px;
+        }
+
+        .section-title {
+            font-size: 22px;
+            color: #2b6cb0;
+            font-weight: 600;
+            margin-top: 30px;
+            margin-bottom: 15px;
+            text-align: left;
+            display: flex;
+            align-items: center;
+        }
+
+        .section-title::before {
+            content: '🌱';
+            margin-right: 8px;
+            font-size: 18px;
+        }
+
+        p {
+            font-size: 16px;
+            line-height: 1.8;
+            color: #4a5568;
+            text-align: left;
+            margin-bottom: 20px;
+        }
+
+        /* 綠色清新強調字 */
+        .highlight {
+            color: #2f855a;
+            font-weight: bold;
+            background: rgba(72, 187, 120, 0.15);
+            padding: 2px 6px;
+            border-radius: 6px;
+        }
+
+        /* 溫柔的手繪手風琴分界線 */
+        hr {
+            border: 0;
+            height: 2px;
+            background-image: linear-gradient(to right, rgba(123, 179, 220, 0), rgba(123, 179, 220, 0.6), rgba(123, 179, 220, 0));
+            margin: 35px auto;
+        }
+
+        /* 執行檔按鈕：草地綠到天空藍的吉卜力大自然配色 */
+        .download-btn {
+            display: inline-block;
+            background: linear-gradient(135deg, #48bb78 0%, #3182ce 100%);
+            color: #ffffff;
+            font-size: 18px;
+            font-weight: 600;
+            letter-spacing: 1px;
+            padding: 16px 50px;
+            text-decoration: none;
+            border-radius: 40px;
+            margin-top: 20px;
+            margin-bottom: 10px;
+            box-shadow: 0 8px 20px rgba(49, 130, 206, 0.3);
+            transition: all 0.3s ease;
+            border: 2px solid #ffffff;
+        }
+
+        /* 按鈕懸停特效 */
+        .download-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 12px 25px rgba(49, 130, 206, 0.5);
+            background: linear-gradient(135deg, #38a169 0%, #2b6cb0 100%);
+        }
+
+        .notice {
+            font-size: 13px;
+            color: #718096;
+            margin-top: 15px;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="cloud-bg">
+        <div class="cloud cloud1"></div>
+        <div class="cloud cloud2"></div>
+        <div class="cloud cloud3"></div>
+    </div>
+
+    <div class="container">
+        <h1>114學年度 期末專題</h1>
+        <h2>深度廣度課程成果展示</h2>
+        
+        <div class="section-title">專題主題介紹</div>
+        <p>本專案以 <span class="highlight">台灣即時空氣品質（AQI）</span> 為觀測核心。隨著工業與現代生活的發展，空污成為切身相關的環境議題。本系統旨在透過科技手段，將繁複的氣象觀測數據轉化為一目了然的在地生活指標，守護每一次的純淨呼吸。</p>
+        
+        <hr>
+
+        <div class="section-title">工具功能與操作說明</div>
+        <p>本查詢工具能夠即時連線環境部開放資料 API（v2），使用者只需開啟程式並輸入想要查詢的 <span class="highlight">測站名稱</span>（例如：萬華、前鎮），即可秒速抓取該地區的即時 AQI 指數、主要污染物以及當前的空氣品質狀態分級，並貼心地提供對應的健康防護與活動建議。</p>
+        
+        <p style="text-align: center; margin-top: 35px; font-weight: 500; color: #2b6cb0;">✨ 點擊下方按鈕，下載專案執行檔：</p>
+        
+        <a href="https://github.com/yangsharon04-cell/index.html/releases/download/v1.0.0/111.exe" class="download-btn">🚀 下載專案執行檔 (111.exe)</a>
+
+        <p class="notice">* 系統需求：Windows 環境。下載後雙擊即可在終端機視窗中直接執行。</p>
+    </div>
+
+</body>
+</html>
